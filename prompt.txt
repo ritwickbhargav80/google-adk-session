@@ -1,0 +1,407 @@
+Build a polished, production-quality web application around the existing **Plan My Weekend ADK agent** in this repository.
+
+IMPORTANT:
+- Do NOT replace or rewrite the existing ADK agent logic.
+- The existing `agent.py` already contains:
+  - `weekend_planner` ADK agent
+  - Gemini model
+  - `search_weekend_knowledge()` tool
+  - Gemini embeddings
+  - MongoDB Atlas Vector Search RAG
+- Reuse the existing agent and MongoDB RAG implementation.
+- Do not create a mock AI response.
+- The application must actually call the existing ADK agent.
+
+## Goal
+
+Turn the existing Plan My Weekend agent into a beautiful web product that can be demonstrated live and deployed as a single project to Vercel.
+
+The product should feel like a modern AI travel-planning application rather than a developer demo.
+
+## Tech Stack
+
+Frontend:
+- React
+- Vite
+- TypeScript
+- Tailwind CSS
+- Modern component-based UI
+- Responsive design
+
+Backend:
+- FastAPI
+- Python
+- Existing Google ADK agent
+- Existing MongoDB Atlas Vector Search
+
+Deployment:
+- Vercel
+- One repository/project
+- Frontend and backend deployed together
+- Do not require a separate backend server for the demo
+
+Use Vercel-compatible API routing/serverless architecture where appropriate.
+
+## Product name
+
+"Plan My Weekend"
+
+Tagline:
+
+"Turn your weekend plans into an itinerary."
+
+## UI
+
+Create a visually impressive landing/application interface.
+
+The main screen should have:
+
+### Header
+
+- Plan My Weekend logo/name
+- Small "AI Weekend Planner" label
+- Clean modern navigation
+- A subtle indicator that the planner is powered by AI
+
+### Hero
+
+Large heading:
+
+"Your weekend, planned in seconds."
+
+Supporting text explaining that the AI creates personalized weekend itineraries based on interests, time and budget.
+
+### Planning form
+
+Create an attractive card containing:
+
+1. Destination
+   - Text input
+   - Example: Jaipur
+
+2. Available time
+   - Saturday
+   - Sunday
+   - Allow users to select available days
+
+3. Interests
+   - Photography
+   - Food
+   - History
+   - Nature
+   - Shopping
+   - Culture
+   - Adventure
+   - Cafes
+
+Use selectable chips rather than a plain text field.
+
+4. Budget
+   - Numeric input
+   - Currency ₹
+   - Example: 1500
+
+5. Number of people
+
+6. Additional preferences
+   - Optional free-text input
+
+7. "Plan My Weekend" button
+
+Make the interaction visually polished.
+
+## Loading experience
+
+When the user clicks "Plan My Weekend":
+
+Show a beautiful progress state rather than a generic spinner.
+
+For example:
+
+"Understanding your preferences..."
+"Searching local recommendations..."
+"Finding the best matches..."
+"Building your itinerary..."
+
+The UI should make it clear that the AI is retrieving information from the knowledge base.
+
+## Results page
+
+Present the generated itinerary as a polished travel dashboard.
+
+Include:
+
+### Weekend overview
+
+Show:
+- Destination
+- Dates/days
+- Budget
+- Number of people
+- Interests
+
+### Timeline
+
+Display the itinerary chronologically.
+
+Example:
+
+SATURDAY
+
+5:00 PM
+📍 Nahargarh Fort
+Sunset photography
+
+7:30 PM
+🍴 Masala Chowk
+Local food
+
+SUNDAY
+
+9:00 AM
+📍 Hawa Mahal
+Photography and architecture
+
+10:30 AM
+☕ Tapri Central
+Breakfast and chai
+
+Use cards/timeline components rather than dumping the LLM response as plain text.
+
+### Recommendation cards
+
+Create separate sections:
+
+"Things to Do"
+
+"Places to Visit"
+
+"Food & Cafes"
+
+Each recommendation card should display:
+- Name
+- Category
+- Location
+- Description
+- Approximate budget
+- Best time
+- Why it matches the user's interests
+
+### Budget summary
+
+Show a visual budget breakdown:
+- Activities
+- Food
+- Entry/other costs
+- Estimated total
+
+Clearly indicate whether the itinerary is within the requested budget.
+
+## AI/RAG transparency
+
+Include a subtle "How this plan was created" section.
+
+Show:
+
+User preferences
+↓
+Semantic search
+↓
+MongoDB Vector Search
+↓
+Relevant recommendations
+↓
+Gemini
+↓
+Personalized itinerary
+
+Do not expose secrets or internal implementation details.
+
+The purpose is to make RAG understandable to a technical audience during a demo.
+
+## Backend API
+
+Create a FastAPI API endpoint such as:
+
+POST /api/plan
+
+Request:
+
+{
+  "destination": "Jaipur",
+  "days": ["Saturday", "Sunday"],
+  "interests": ["photography", "food", "history"],
+  "budget": 1500,
+  "people": 2,
+  "preferences": "Prefer relaxed activities"
+}
+
+The endpoint should invoke the existing ADK agent.
+
+Do not duplicate the agent's business logic inside FastAPI.
+
+Create a clean service layer if needed:
+
+frontend
+→ FastAPI
+→ ADK agent
+→ search_weekend_knowledge()
+→ MongoDB Vector Search
+→ Gemini
+→ response
+
+## Response handling
+
+Prefer returning structured JSON from the backend so that the frontend can render the itinerary as UI components.
+
+If the existing agent currently returns plain text, adapt the response parsing carefully without changing the underlying RAG behavior.
+
+Do not fabricate fields that are not present in the agent response.
+
+## Error handling
+
+Handle:
+- Missing Gemini API key
+- Missing MongoDB URI
+- MongoDB connection failure
+- Vector Search failure
+- Gemini/API errors
+- Invalid user input
+- Empty search results
+
+Show user-friendly error messages.
+
+Never expose API keys, MongoDB credentials, stack traces or internal errors to the browser.
+
+## Environment variables
+
+Use environment variables.
+
+Expected variables:
+
+GOOGLE_API_KEY
+MONGODB_URI
+MONGODB_DATABASE
+MONGODB_COLLECTION
+
+Do not hard-code any credentials.
+
+Create/update `.env.example` with placeholder values.
+
+Do not commit `.env`.
+
+## Vercel
+
+Configure the repository so it can be deployed as one Vercel project.
+
+The user should be able to:
+
+1. Push the repository to GitHub
+2. Import the repository into Vercel
+3. Configure environment variables
+4. Deploy
+
+Avoid requiring:
+- Docker
+- A separate frontend deployment
+- A separate backend deployment
+- Local-only services
+
+Use the simplest Vercel-compatible architecture.
+
+## Important architecture constraint
+
+Do not create a second AI implementation.
+
+The existing ADK agent is the source of truth.
+
+The web application is a product layer around that agent.
+
+Keep the following concepts clearly separated:
+
+Frontend:
+UI and user interaction
+
+FastAPI:
+API boundary
+
+ADK:
+Agent orchestration and reasoning
+
+RAG tool:
+MongoDB Vector Search retrieval
+
+MongoDB:
+Knowledge + embeddings
+
+Gemini:
+Embedding + generation
+
+## Demo-friendly features
+
+Add a few polished features that improve the live demo:
+
+- Example prompt / "Try Jaipur" button
+- Reset planning button
+- Edit preferences and regenerate
+- Smooth transitions
+- Responsive mobile layout
+- Empty state
+- Loading state
+- Error state
+- "Generated with AI" indicator
+
+Do NOT add authentication, user accounts, payments, or unnecessary infrastructure.
+
+## Visual direction
+
+Use a premium modern travel/AI aesthetic.
+
+Think:
+- clean
+- spacious
+- minimal
+- polished
+- professional
+- subtle gradients
+- rounded cards
+- tasteful animations
+- strong typography
+- excellent mobile responsiveness
+
+Avoid:
+- generic Bootstrap appearance
+- excessive gradients
+- excessive animations
+- clutter
+- giant dashboards
+- overly technical developer UI
+
+The result should look like something that could actually be launched as a small AI travel product.
+
+## Final requirement
+
+After implementation:
+
+1. Run the application locally.
+2. Verify the frontend can call the FastAPI endpoint.
+3. Verify the endpoint invokes the existing ADK agent.
+4. Verify the agent performs MongoDB Vector Search.
+5. Test the complete flow using:
+
+Destination: Jaipur
+Days: Saturday evening + Sunday morning
+Interests: Photography, History, Food
+Budget: ₹1500
+People: 2
+
+6. Fix any integration errors.
+7. Add a concise README containing:
+   - Architecture
+   - Local setup
+   - Environment variables
+   - MongoDB Vector Search setup
+   - Local run commands
+   - Vercel deployment steps
+
+Do not stop after creating the UI. The final result must be a working end-to-end application connected to the existing ADK + MongoDB RAG agent.

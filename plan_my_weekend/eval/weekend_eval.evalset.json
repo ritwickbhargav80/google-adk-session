@@ -1,0 +1,49 @@
+{
+  "eval_set_id": "weekend_planner_eval",
+  "name": "Plan My Weekend Evaluation",
+  "description": "Evaluation cases for the Plan My Weekend RAG agent",
+  "eval_cases": [
+    {
+      "eval_id": "jaipur_photography_food",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [
+              {
+                "text": "I'm visiting Jaipur this weekend. I have Saturday evening and Sunday morning available. I love photography, historic places, and local food. I'm traveling with one friend and have a total budget of ₹1500. Create a practical weekend itinerary."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "sunday_morning",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [
+              {
+                "text": "I only have Sunday morning in Jaipur. I want photography and breakfast. Keep my budget under ₹700."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "eval_id": "sunset_photography",
+      "conversation": [
+        {
+          "user_content": {
+            "parts": [
+              {
+                "text": "I want a sunset photography experience in Jaipur on Saturday evening."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Nahargarh Fort Sunset",
+    "category": "activity",
+    "location": "Jaipur",
+    "description": "A popular spot for sunset views and photography overlooking Jaipur.",
+    "budget": 200,
+    "best_time": "Saturday evening",
+    "interests": ["photography", "sunset", "history"]
+  },
+  {
+    "name": "Hawa Mahal",
+    "category": "place",
+    "location": "Jaipur",
+    "description": "An iconic Jaipur landmark with distinctive architecture and excellent photography opportunities.",
+    "budget": 200,
+    "best_time": "Sunday morning",
+    "interests": ["photography", "architecture", "history"]
+  },
+  {
+    "name": "Jal Mahal",
+    "category": "place",
+    "location": "Jaipur",
+    "description": "A palace surrounded by Man Sagar Lake and a scenic location for photography.",
+    "budget": 100,
+    "best_time": "Saturday evening",
+    "interests": ["photography", "sunset", "architecture"]
+  },
+  {
+    "name": "Tapri Central",
+    "category": "food",
+    "location": "Jaipur",
+    "description": "A popular cafe suitable for chai, breakfast and casual conversations.",
+    "budget": 500,
+    "best_time": "Sunday morning",
+    "interests": ["cafe", "chai", "breakfast"]
+  },
+  {
+    "name": "Masala Chowk",
+    "category": "food",
+    "location": "Jaipur",
+    "description": "A food court offering a variety of popular local Jaipur dishes.",
+    "budget": 400,
+    "best_time": "Saturday evening",
+    "interests": ["local food", "street food", "dinner"]
+  }
+]
